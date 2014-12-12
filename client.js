@@ -1,4 +1,5 @@
-var ws = new WebSocket("ws://localhost:3000");
+//var ws = new WebSocket("ws://localhost:3000");
+var ws = new WebSocket("ws://alvin.princesspeach.nyc:3000");
 
 var userName = prompt("GIVE ME YOUR PHUCKING NAME").trim();
 var userColor = prompt("pick a color");
