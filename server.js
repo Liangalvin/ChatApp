@@ -12,7 +12,7 @@ server.on("connection", function(ws){
       userNamez.push(ws);
       userNamez.forEach(function(jsNamed){
         var robot = {name : "Robot", newMessage: jsNamed.name + " connected", color: "black"};
-        console.log(jsNamed);
+        console.log(robot.newMessage);
         //console.log(robot);
         var broadcast = JSON.stringify(robot);
       //  console.log(broadcast);
@@ -29,5 +29,22 @@ server.on("connection", function(ws){
         for(i=0; i<clients.length; i++){
           clients[i].send(msg);
         }
+        var sentIns = JSON.parse(msg);
+        var strangz = sentIns.newMessage.trim();
+        var strArray = strangz.split(" ");
+        strArray.forEach(function(str){
+          var insults = str.toLowerCase();
+          if(insults === "trey" || insults === "trey jackson" || insults === "roland" || insults === "roland jackson"){
+          var insultHash = {};
+          insultHash["name"] = str;
+          var jsInsultHash = insultHash.name;
+          var insultBot = {name: "Robot", newMessage: jsInsultHash.name + " that word is an insult beyond reprieve you are immediately banned", color: "black"}
+          console.log(insultBot.newMessage);
+          var jSinsultBot = JSON.stringify(jSinsultBot);
+          ws.send(jSinsultBot);
+          ws.close();
+          }
+        console.log(strArray);
     });
   });
+});
