@@ -9,7 +9,7 @@ server.on("connection", function(ws){
         ws.send(msgz);
       })
     }
-    /*  userNamez.push(ws);
+      userNamez.push(ws);
       //var pName = JSON.parse(jsNamed);
       userNamez.forEach(function(jsNamed){
         userz = jsNamed.name;
@@ -19,7 +19,7 @@ server.on("connection", function(ws){
         var broadcast = JSON.stringify(robot);
        //console.log(broadcast);
         jsNamed.send(broadcast);
-      })*/
+      })
       clients.push(ws);
       ws.on("close", function(){
         var x = clients.indexOf(ws);
@@ -27,8 +27,12 @@ server.on("connection", function(ws){
       });
       ws.on("message", function(msg){
         history.push(msg);
-        for(i=0; i<clients.length; i++){
+        //for(var i = 0; i < clients.length; i++){
+        //clients.forEach(function(client){
           //clients[i].send(msg);
+          //console.log(msg);
+        //})
+      //}
         var sentIns = JSON.parse(msg);
         //console.log(sentIns);
         var strangz = sentIns.newMessage.trim().toLowerCase();
@@ -57,32 +61,21 @@ server.on("connection", function(ws){
         var kirbyHash = {name: sentIns.name, newMessage: msgzArray, color: sentIns.color};
         //console.log(kirbyHash);
         var jsKirbyHash = JSON.stringify(kirbyHash);
-        clients.forEach(function(clients){
-          clients.send(jsKirbyHash);
+        clients.forEach(function(client){
+          client.send(jsKirbyHash);
         })
       }
-        else if (msgz === "!connected"){
+        /*else if (msgz === "!connected"){
           var cCut = msgzArray.splice(0, 1);
+          console.log(cCut);
+          console.log(msgzArray);
           msgzArray.push(" connected");
           var clientConnect = {name : sentIns.name, newMessage: sentIns.name + msgzArray, color: sentIns.color};
           var jsCC = JSON.stringify(clientConnect);
           clients.forEach(function(clients){
             clients.send(jsCC);
           })
-        }
-        //userNamez.push(ws);
-        //var pName = JSON.parse(jsNamed);
-        /*else if (msgz === "!connected"){
-        clients.forEach(function(users){
-          userz = sentIns.name;
-          var robot = {name : "Robot", newMessage: userz + " connected", color: "black"};
-          //console.log(robot.newMessage);
-          //console.log(robot);
-          var broadcast = JSON.stringify(robot);
-         //console.log(broadcast);
-          users.send(broadcast);
-        })
-      }*/
+        }*/
         else if (msgz === y){
           var yelling = msgzArray.splice(0, 1);
           console.log(yelling);
@@ -93,23 +86,24 @@ server.on("connection", function(ws){
           })
           var yellHash = {name: sentIns.name, newMessage: msgzArray + "!", color: sentIns.color};
           var jsYellHash = JSON.stringify(yellHash);
-          clients.forEach(function(clients){
-            clients.send(jsYellHash);
+          clients.forEach(function(client){
+            client.send(jsYellHash);
           })
         }
         else if (msgz === "robokirby"){
           var kirbyBot = {name: "Robot", newMessage: "<(''<) (^''^) (>'')> <(''<) (^''^) (>'')>", color: "black"};
           var jsKirbyBot = JSON.stringify(kirbyBot);
-          clients.forEach(function(clients){
-            clients.send(jsKirbyBot);
+          clients.forEach(function(client){
+            client.send(jsKirbyBot);
           })
         }
         else {
-          clients.forEach(function(clients){
-            clients.send(msg);
+          clients.forEach(function(client){
+            client.send(msg);
+            console.log(msg);
           })
         }
       });
-    }
+    //}
   });
 });

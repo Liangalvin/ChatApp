@@ -7,6 +7,18 @@ var div = document.querySelector("div");
 div.appendChild(ul);
 
 ws.addEventListener("open", function(evt){
+  var userName = prompt("GIVE ME YOUR PHUCKING NAME").trim();
+  var sendIt = function(person){
+  //  var userMessage = {name: userName};
+    jsName["name"]= userName;
+    console.log(userMessage);
+    var jsNamed = JSON.stringify(jsName); //jsName.name
+    //console.log(jsNamed.name)
+    ws.send(userMessage);
+    console.log(userMessage.name);
+    //console.log(jsName);
+  }
+    var userColor = prompt("pick a color");
 
     //addText('Current Status: Connected');
     var addText = function(msg){
@@ -44,15 +56,3 @@ ws.addEventListener("open", function(evt){
     }
   });
 });
-var userName = prompt("GIVE ME YOUR PHUCKING NAME").trim();
-var sendIt = function(userName){
-  var jsName = {name: userName, newMessage: "!connected", color: "black"};
-//  jsName["name"]= userName;
-  console.log(jsName);
-  var jsNamed = JSON.stringify(jsName); //jsName.name
-  //console.log(jsNamed.name)
-  ws.send(jsNamed);
-  console.log(jsNamed.name);
-  //console.log(jsName);
-}
-  var userColor = prompt("pick a color");
