@@ -10,12 +10,14 @@ server.on("connection", function(ws){
       })
     }
       userNamez.push(ws);
+      //var pName = JSON.parse(jsNamed);
       userNamez.forEach(function(jsNamed){
-        var robot = {name : "Robot", newMessage: jsNamed.name + " connected", color: "black"};
-        console.log(robot.newMessage);
+        userz = jsNamed.name;
+        var robot = {name : "Robot", newMessage: userz + " connected", color: "black"};
+        //console.log(robot.newMessage);
         //console.log(robot);
         var broadcast = JSON.stringify(robot);
-      //  console.log(broadcast);
+       //console.log(broadcast);
         jsNamed.send(broadcast);
       })
       clients.push(ws);
@@ -29,22 +31,65 @@ server.on("connection", function(ws){
         for(i=0; i<clients.length; i++){
           clients[i].send(msg);
         }
+
         var sentIns = JSON.parse(msg);
-        var strangz = sentIns.newMessage.trim();
-        var strArray = strangz.split(" ");
-        strArray.forEach(function(str){
-          var insults = str.toLowerCase();
-          if(insults === "trey" || insults === "trey jackson" || insults === "roland" || insults === "roland jackson"){
+        //console.log(sentIns);
+        var strangz = sentIns.newMessage.trim().toLowerCase();
+        //console.log(strangz);
+        var msgzArray = strangz.split(" ");
+        //console.log(msgzArray);
+        var y = "!yell";
+
+        //console.log(strArray);
+        msgzArray.forEach(function(msgz){
+          //console.log(insults);
+          if(msgz === "trey" || msgz === "\"trey\"" || msgz === "treyjackson" || msgz === "rolandjackson"){
           var insultHash = {};
-          insultHash["name"] = str;
-          var jsInsultHash = insultHash.name;
-          var insultBot = {name: "Robot", newMessage: jsInsultHash.name + " that word is an insult beyond reprieve you are immediately banned", color: "black"}
-          console.log(insultBot.newMessage);
-          var jSinsultBot = JSON.stringify(jSinsultBot);
+          insultHash["newMessage"] = msgz;
+          //console.log(insultHash.newMessage);
+          var insultBot = {name: "Robot", newMessage: insultHash.newMessage + " is an insult beyond reprieve you are immediately banned", color: "black"};
+          //console.log(insultBot.newMessage);
+          var jSinsultBot = JSON.stringify(insultBot);
           ws.send(jSinsultBot);
           ws.close();
-          }
-        console.log(strArray);
+        }
+        else if (msgz === y){
+          var yelling = msgzArray.splice(0, 1);
+          console.log(yelling);
+          console.log(msgzArray);
+          msgzArray.forEach(function(msg){
+            msgzArray = msg.toUpperCase();
+            return msgzArray;
+          })
+          var yellHash = {name: sentIns.name, newMessage: msgzArray, color: sentIns.color};
+          var jsYellHash = JSON.stringify(yellHash);
+          clients.forEach(function(clients){
+            clients.send(jsYellHash);
+          })
+        }
+        else if (msgz === "robokirby"){
+          var kirbyBot = {name: "Robot", newMessage: "<(''<) (^''^) (>'')> <(''<) (^''^) (>'')>", color: "black"};
+          var jsKirbyBot = JSON.stringify(kirbyBot);
+          clients.forEach(function(clients){
+            clients.send(jsKirbyBot);
+          })
+        }
+        // else if (insults === "(kdnc)"){
+        //   var userMessage = {newMessage: "<(''<) (^''^) (>'')> <(''<) (^''^) (>'')>"};
+        //   var kMessage = JSON.stringify(userMessage);
+        //   ws.send(userMessage);
+        // }
     });
   });
 });
+
+/*var kirby = function(msg){
+  if (sentIns.newMessage.trim() === "(kdnc)"){
+    var kirbe = {};
+    kirbe["name"]= sentIns.names;
+    kirbe["userMessage"]= "<(''<) (^''^) (>'')> <(''<) (^''^) (>'')>";
+    kirbe["color"]= sentIns.color;
+    jsKirby = JSON.stringify(kirbe);
+    ws.send(jsKirby);
+  }
+}*/

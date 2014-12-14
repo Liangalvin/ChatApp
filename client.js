@@ -1,19 +1,6 @@
 var ws = new WebSocket("ws://localhost:3000");
 //var ws = new WebSocket("ws://alvin.princesspeach.nyc:3000");
 
-var userName = prompt("GIVE ME YOUR PHUCKING NAME").trim();
-var sendIt = function(userName){
-  var jsName = {};
-  jsName["name"]= userName;
-  //console.log(jsName.name);
-  var jsNamed = JSON.stringify(jsName); //jsName.name
-  //console.log(jsNamed.name)
-  ws.send(jsNamed);
-  //console.log(jsNamed.name);
-  //console.log(jsName);
-}
-  var userColor = prompt("pick a color");
-
 var ul = document.createElement("ul");
 var body = document.querySelector("body");
 body.appendChild(ul);
@@ -55,3 +42,15 @@ ws.addEventListener("open", function(evt){
     }
   });
 });
+var userName = prompt("GIVE ME YOUR PHUCKING NAME").trim();
+var sendIt = function(userName){
+  //var jsName = {name: userName};
+//  jsName["name"]= userName;
+  console.log(jsName);
+  var jsNamed = JSON.stringify(jsName); //jsName.name
+  //console.log(jsNamed.name)
+  ws.send(jsNamed);
+  console.log(jsNamed.name);
+  //console.log(jsName);
+}
+  var userColor = prompt("pick a color");
