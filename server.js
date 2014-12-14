@@ -27,11 +27,9 @@ server.on("connection", function(ws){
       });
       ws.on("message", function(msg){
         history.push(msg);
-        //console.log(clients);
         for(i=0; i<clients.length; i++){
           clients[i].send(msg);
         }
-
         var sentIns = JSON.parse(msg);
         //console.log(sentIns);
         var strangz = sentIns.newMessage.trim().toLowerCase();
@@ -39,7 +37,6 @@ server.on("connection", function(ws){
         var msgzArray = strangz.split(" ");
         //console.log(msgzArray);
         var y = "!yell";
-
         //console.log(strArray);
         msgzArray.forEach(function(msgz){
           //console.log(insults);
@@ -53,10 +50,22 @@ server.on("connection", function(ws){
           ws.send(jSinsultBot);
           ws.close();
         }
+        else if (msgz === "!kurbee"){
+        var kirbcut = msgzArray.pop();
+        msgzArray.push("<(''<) (^''^) (>'')> <(''<) (^''^) (>'')> <<< LOOK AT HIM GO!")
+        //console.log(kirbcut);
+        //console.log(msgzArray);
+        var kirbyHash = {name: sentIns.name, newMessage: msgzArray, color: sentIns.color};
+        //console.log(kirbyHash);
+        var jsKirbyHash = JSON.stringify(kirbyHash);
+        clients.forEach(function(clients){
+          clients.send(jsKirbyHash);
+        })
+      }
         else if (msgz === y){
           var yelling = msgzArray.splice(0, 1);
-          console.log(yelling);
-          console.log(msgzArray);
+          //console.log(yelling);
+          //console.log(msgzArray);
           msgzArray.forEach(function(msg){
             msgzArray = msg.toUpperCase();
             return msgzArray;
@@ -74,22 +83,6 @@ server.on("connection", function(ws){
             clients.send(jsKirbyBot);
           })
         }
-        // else if (insults === "(kdnc)"){
-        //   var userMessage = {newMessage: "<(''<) (^''^) (>'')> <(''<) (^''^) (>'')>"};
-        //   var kMessage = JSON.stringify(userMessage);
-        //   ws.send(userMessage);
-        // }
+      });
     });
   });
-});
-
-/*var kirby = function(msg){
-  if (sentIns.newMessage.trim() === "(kdnc)"){
-    var kirbe = {};
-    kirbe["name"]= sentIns.names;
-    kirbe["userMessage"]= "<(''<) (^''^) (>'')> <(''<) (^''^) (>'')>";
-    kirbe["color"]= sentIns.color;
-    jsKirby = JSON.stringify(kirbe);
-    ws.send(jsKirby);
-  }
-}*/
