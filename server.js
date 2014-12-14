@@ -40,7 +40,7 @@ server.on("connection", function(ws){
         //console.log(strArray);
         msgzArray.forEach(function(msgz){
           //console.log(insults);
-          if(msgz === "trey" || msgz === "\"trey\"" || msgz === "treyjackson" || msgz === "rolandjackson"){
+          if(msgz === "trey" || msgz === "\"trey\"" || msgz === "treyjackson" || msgz === "rolandjackson" || msgz === "rolan" || msgz === "rolanjackson"){
           var insultHash = {};
           insultHash["newMessage"] = msgz;
           //console.log(insultHash.newMessage);
