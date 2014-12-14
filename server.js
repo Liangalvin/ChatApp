@@ -9,7 +9,7 @@ server.on("connection", function(ws){
         ws.send(msgz);
       })
     }
-      userNamez.push(ws);
+    /*  userNamez.push(ws);
       //var pName = JSON.parse(jsNamed);
       userNamez.forEach(function(jsNamed){
         userz = jsNamed.name;
@@ -19,7 +19,7 @@ server.on("connection", function(ws){
         var broadcast = JSON.stringify(robot);
        //console.log(broadcast);
         jsNamed.send(broadcast);
-      })
+      })*/
       clients.push(ws);
       ws.on("close", function(){
         var x = clients.indexOf(ws);
@@ -28,8 +28,7 @@ server.on("connection", function(ws){
       ws.on("message", function(msg){
         history.push(msg);
         for(i=0; i<clients.length; i++){
-          clients[i].send(msg);
-        }
+          //clients[i].send(msg);
         var sentIns = JSON.parse(msg);
         //console.log(sentIns);
         var strangz = sentIns.newMessage.trim().toLowerCase();
@@ -44,15 +43,15 @@ server.on("connection", function(ws){
           var insultHash = {};
           insultHash["newMessage"] = msgz;
           //console.log(insultHash.newMessage);
-          var insultBot = {name: "Robot", newMessage: insultHash.newMessage + " is an insult beyond reprieve you are immediately banned", color: "black"};
+          var insultBot = {name: "Robot", newMessage: "'" + insultHash.newMessage + "'" + " is profanity beyond reprieve you are immediately banned", color: "black"};
           //console.log(insultBot.newMessage);
           var jSinsultBot = JSON.stringify(insultBot);
           ws.send(jSinsultBot);
           ws.close();
         }
         else if (msgz === "!kurbee"){
-        var kirbcut = msgzArray.pop();
-        msgzArray.push("<(''<) (^''^) (>'')> <(''<) (^''^) (>'')> <<< LOOK AT HIM GO!")
+        var kirbcut = msgzArray.splice(0, 1);
+        msgzArray.push("<(''<) (^''^) (>'')> <(''<) (^''^) (>'')>   <<< LOOK AT KIRBY GO!");
         //console.log(kirbcut);
         //console.log(msgzArray);
         var kirbyHash = {name: sentIns.name, newMessage: msgzArray, color: sentIns.color};
@@ -62,15 +61,37 @@ server.on("connection", function(ws){
           clients.send(jsKirbyHash);
         })
       }
+        else if (msgz === "!connected"){
+          var cCut = msgzArray.splice(0, 1);
+          msgzArray.push(" connected");
+          var clientConnect = {name : sentIns.name, newMessage: sentIns.name + msgzArray, color: sentIns.color};
+          var jsCC = JSON.stringify(clientConnect);
+          clients.forEach(function(clients){
+            clients.send(jsCC);
+          })
+        }
+        //userNamez.push(ws);
+        //var pName = JSON.parse(jsNamed);
+        /*else if (msgz === "!connected"){
+        clients.forEach(function(users){
+          userz = sentIns.name;
+          var robot = {name : "Robot", newMessage: userz + " connected", color: "black"};
+          //console.log(robot.newMessage);
+          //console.log(robot);
+          var broadcast = JSON.stringify(robot);
+         //console.log(broadcast);
+          users.send(broadcast);
+        })
+      }*/
         else if (msgz === y){
           var yelling = msgzArray.splice(0, 1);
-          //console.log(yelling);
-          //console.log(msgzArray);
+          console.log(yelling);
+          console.log(msgzArray);
           msgzArray.forEach(function(msg){
             msgzArray = msg.toUpperCase();
             return msgzArray;
           })
-          var yellHash = {name: sentIns.name, newMessage: msgzArray, color: sentIns.color};
+          var yellHash = {name: sentIns.name, newMessage: msgzArray + "!", color: sentIns.color};
           var jsYellHash = JSON.stringify(yellHash);
           clients.forEach(function(clients){
             clients.send(jsYellHash);
@@ -83,6 +104,12 @@ server.on("connection", function(ws){
             clients.send(jsKirbyBot);
           })
         }
+        else {
+          clients.forEach(function(clients){
+            clients.send(msg);
+          })
+        }
       });
-    });
+    }
   });
+});

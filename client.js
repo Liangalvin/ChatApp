@@ -3,7 +3,8 @@ var ws = new WebSocket("ws://localhost:3000");
 
 var ul = document.createElement("ul");
 var body = document.querySelector("body");
-body.appendChild(ul);
+var div = document.querySelector("div");
+div.appendChild(ul);
 
 ws.addEventListener("open", function(evt){
 
@@ -17,6 +18,7 @@ ws.addEventListener("open", function(evt){
       newli.innerHTML = printMessage;
       var firstli = ul.firstChild;
       ul.insertBefore(newli, firstli);
+      //ul.appendChild(newli);
     }
 
   ws.addEventListener("message", function(evt){
@@ -44,7 +46,7 @@ ws.addEventListener("open", function(evt){
 });
 var userName = prompt("GIVE ME YOUR PHUCKING NAME").trim();
 var sendIt = function(userName){
-  //var jsName = {name: userName};
+  var jsName = {name: userName, newMessage: "!connected", color: "black"};
 //  jsName["name"]= userName;
   console.log(jsName);
   var jsNamed = JSON.stringify(jsName); //jsName.name
