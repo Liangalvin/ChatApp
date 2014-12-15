@@ -25,6 +25,7 @@ server.on("connection", function(ws){
         var x = clients.indexOf(ws);
         clients.splice(x, 1);
       });
+
       ws.on("message", function(msg){
         history.push(msg);
         //for(var i = 0; i < clients.length; i++){
@@ -42,6 +43,7 @@ server.on("connection", function(ws){
         var y = "!yell";
         //console.log(strArray);
         msgzArray.forEach(function(msgz){
+        //clients.forEach(function(msgz){
           //console.log(insults);
           if(msgz === "trey" || msgz === "\"trey\"" || msgz === "treyjackson" || msgz === "rolandjackson" || msgz === "rolan" || msgz === "rolanjackson"){
           var insultHash = {};
@@ -61,9 +63,10 @@ server.on("connection", function(ws){
         var kirbyHash = {name: sentIns.name, newMessage: msgzArray, color: sentIns.color};
         //console.log(kirbyHash);
         var jsKirbyHash = JSON.stringify(kirbyHash);
-        clients.forEach(function(client){
+        /*clients.forEach(function(client){
           client.send(jsKirbyHash);
-        })
+        })*/
+        ws.send(jsKirbyHash);
       }
         /*else if (msgz === "!connected"){
           var cCut = msgzArray.splice(0, 1);
@@ -103,6 +106,7 @@ server.on("connection", function(ws){
             console.log(msg);
           })
         }
+        //ws.send(msg);
       });
     //}
   });

@@ -35,7 +35,25 @@ ws.addEventListener("open", function(evt){
 
   ws.addEventListener("message", function(evt){
     addText(evt.data);
+//});
+
+    var picParse = JSON.parse(evt.data);
+    var createLi = document.createElement("li");
+    ul.appendChild(createLi);
+    var picMsg = picParse.newMessage;
+    var image = picMsg.split(" ");
+    image.forEach(function(linkStr){
+      var linkLeng = linkStr.length;
+      var lasChars = linkStr.charAt(linkLeng-3) + linkStr.charAt(linkLeng-2) + linkStr.charAt(linkLeng-1);
+      if (lasChars === "gif" || lasChars === "png" || lasChars === "jpg"){
+        var createImg = document.createElement("img");
+        createImg.src = linkStr;
+        createImg.height = 150;
+        createImg.width = 100;
+        createLi.appendChild(createImg);
+      }
     });
+  });
 
   button.addEventListener("click", function(evt){
     var inputStr = document.querySelector("#input");
