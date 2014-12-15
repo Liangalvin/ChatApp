@@ -51,6 +51,7 @@ ws.addEventListener("open", function(evt){
         createImg.height = 150;
         createImg.width = 100;
         createLi.appendChild(createImg);
+        ul.appendChild(createLi);
       }
     });
   });
