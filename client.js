@@ -25,8 +25,30 @@ ws.addEventListener("open", function(evt){
       var newli = document.createElement("li");
       var mssg = JSON.parse(msg);
       var printMessage = mssg.name + ": " + mssg.newMessage;
-      console.log(mssg);
+      //console.log(mssg);
+      var parseMessage = mssg.newMessage[0];
+      console.log(parseMessage);
+      var msgAry = parseMessage.split(" ");
+      input.value = " ";
+      for(var i = 0; i < msgAry.length; i++){
+        if(msgAry[i] === "!yell"){
+          msgAry.splice(i, 1);
+          //console.log(msgAry);
+          for(var i = 0 ; i < msgAry.length; i++){
+            msgAry[i] = msgAry[i].toUpperCase();
+            //console.log(msgAry);
+            printMessage = "<li>" + userName + ": " + msgAry.join(" ") + "!" + "</li>";
+          }
+        }
+        else if (msgAry[i] === "!kurbee"){
+          msgAry.splice(i, 1);
+          msg = ("<(''<) (^''^) (>'')> <(''<) (^''^) (>'')>   <<< LOOK AT KIRBY GO!")
+          printMessage = "<li>" + userName + ": " + msg + "<li>";
+        }
+      }
+
       newli.style.color = mssg.color;
+
       newli.innerHTML = printMessage;
       var firstli = ul.firstChild;
       ul.insertBefore(newli, firstli);
@@ -40,7 +62,7 @@ ws.addEventListener("open", function(evt){
     var picParse = JSON.parse(evt.data);
     var createLi = document.createElement("li");
     ul.appendChild(createLi);
-    var picMsg = picParse.newMessage;
+    var picMsg = picParse.newMessage[0];
     var image = picMsg.split(" ");
     image.forEach(function(linkStr){
       var linkLeng = linkStr.length;
@@ -55,6 +77,8 @@ ws.addEventListener("open", function(evt){
       }
     });
   });
+
+
 
   button.addEventListener("click", function(evt){
     var inputStr = document.querySelector("#input");

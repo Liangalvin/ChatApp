@@ -40,7 +40,7 @@ server.on("connection", function(ws){
         //console.log(strangz);
         var msgzArray = strangz.split(" ");
         //console.log(msgzArray);
-        var y = "!yell";
+        //var y = "!yell";
         //console.log(strArray);
         msgzArray.forEach(function(msgz){
         //clients.forEach(function(msgz){
@@ -55,7 +55,7 @@ server.on("connection", function(ws){
           ws.send(jSinsultBot);
           ws.close();
         }
-        else if (msgz === "!kurbee"){
+      /*  else if (msgz === "!kurbee"){
         var kirbcut = msgzArray.splice(0, 1);
         msgzArray.push("<(''<) (^''^) (>'')> <(''<) (^''^) (>'')>   <<< LOOK AT KIRBY GO!");
         //console.log(kirbcut);
@@ -65,9 +65,9 @@ server.on("connection", function(ws){
         var jsKirbyHash = JSON.stringify(kirbyHash);
         /*clients.forEach(function(client){
           client.send(jsKirbyHash);
-        })*/
+        })
         ws.send(jsKirbyHash);
-      }
+      }*/
         /*else if (msgz === "!connected"){
           var cCut = msgzArray.splice(0, 1);
           console.log(cCut);
@@ -79,7 +79,7 @@ server.on("connection", function(ws){
             clients.send(jsCC);
           })
         }*/
-        else if (msgz === y){
+        /*else if (msgz === y){
           var yelling = msgzArray.splice(0, 1);
           console.log(yelling);
           console.log(msgzArray);
@@ -94,7 +94,7 @@ server.on("connection", function(ws){
             client.send(jsYellHash);
             //ws.send(jsYellHash);
           })
-        }
+        }*/
         else if (msgz === "robokirby"){
           var kirbyBot = {name: "Robot", newMessage: "<(''<) (^''^) (>'')> <(''<) (^''^) (>'')>", color: "black"};
           var jsKirbyBot = JSON.stringify(kirbyBot);
