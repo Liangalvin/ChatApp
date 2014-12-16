@@ -26,7 +26,7 @@ ws.addEventListener("open", function(evt){
       var mssg = JSON.parse(msg);
       var printMessage = mssg.name + ": " + mssg.newMessage;
       //console.log(mssg);
-      var parseMessage = mssg.newMessage[0];
+      var parseMessage = mssg.newMessage.trim();
       console.log(parseMessage);
       var msgAry = parseMessage.split(" ");
       input.value = " ";
@@ -37,13 +37,13 @@ ws.addEventListener("open", function(evt){
           for(var i = 0 ; i < msgAry.length; i++){
             msgAry[i] = msgAry[i].toUpperCase();
             //console.log(msgAry);
-            printMessage = "<li>" + userName + ": " + msgAry.join(" ") + "!" + "</li>";
+            printMessage = "<li>" + mssg.name + ": " + msgAry.join(" ") + "!" + "</li>";
           }
         }
         else if (msgAry[i] === "!kurbee"){
           msgAry.splice(i, 1);
           msg = ("<(''<) (^''^) (>'')> <(''<) (^''^) (>'')>   <<< LOOK AT KIRBY GO!")
-          printMessage = "<li>" + userName + ": " + msg + "<li>";
+          printMessage = "<li>" + mssg.name + ": " + msg + "<li>";
         }
       }
 
@@ -62,20 +62,24 @@ ws.addEventListener("open", function(evt){
     var picParse = JSON.parse(evt.data);
     var createLi = document.createElement("li");
     ul.appendChild(createLi);
-    var picMsg = picParse.newMessage[0];
-    var image = picMsg.split(" ");
-    image.forEach(function(linkStr){
-      var linkLeng = linkStr.length;
-      var lasChars = linkStr.charAt(linkLeng-3) + linkStr.charAt(linkLeng-2) + linkStr.charAt(linkLeng-1);
-      if (lasChars === "gif" || lasChars === "png" || lasChars === "jpg"){
-        var createImg = document.createElement("img");
-        createImg.src = linkStr;
-        createImg.height = 150;
-        createImg.width = 100;
-        createLi.appendChild(createImg);
-        ul.appendChild(createLi);
+    var picMsg = picParse.newMessage;
+
+    var fourChar = picMsg.substring(0, 5).trim();
+    if (fourChar === "http"){
+      var length = picMsg.length;
+      console.log(length);
+      var lastThree = picMsg.substring(length-3, length);
+      console.log(lastThree);
+      if (lastThree === "png" || lastThree === "jpg" || lastThree === "bmp" || lastThree === "gif"){
+        innerMessage = "<img src='" + picMsg +"'>";
       }
-    });
+      else{
+        innerMessage = "<a href='" + picMsg + "'>" + picMsg + "</a>";
+        //console.log(innerMessage);
+      }
+      createLi.innerHTML = innerMessage;
+      //console.log(innerMessage);
+    }
   });
 
 
