@@ -20,8 +20,22 @@ div {
   overflow: hidden;
 }
 
+#clients {
+  float: right;
+  height: 75%;
+  width: 30%;
+  /*background-color: blue;*/
+  margin: auto;
+}
+
 ul {
   list-style: none;
+  /*background-color: red;*/
+  height: 75%;
+  width: 60%;
+  margin: auto;
+  float: left;
+  overflow: hidden;
 }
 
 h1 {
@@ -31,4 +45,5 @@ h1 {
 input {
   width: 70%;
   height: 10%;
+  margin-bottom: 10px;
 }

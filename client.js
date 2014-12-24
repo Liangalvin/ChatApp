@@ -1,9 +1,10 @@
-//var ws = new WebSocket("ws://localhost:3000");
-var ws = new WebSocket("ws://alvin.princesspeach.nyc:3000");
+var ws = new WebSocket("ws://localhost:3000");
+//var ws = new WebSocket("ws://alvin.princesspeach.nyc:3000");
 
 var ul = document.createElement("ul");
 var body = document.querySelector("body");
 var div = document.querySelector("div");
+var clientList = document.querySelector("#clientsConnected");
 div.appendChild(ul);
 
 ws.addEventListener("open", function(evt){
@@ -23,9 +24,13 @@ ws.addEventListener("open", function(evt){
     //addText('Current Status: Connected');
     var addText = function(msg){
       var newli = document.createElement("li");
+      //var clientLi = document.createElemetn("li");
       var mssg = JSON.parse(msg);
       var printMessage = mssg.name + ": " + mssg.newMessage;
       //console.log(mssg);
+      //var clientName = mssg.name.trim();
+      //clientList.appendChild(clientLi);
+      //clientName.innerHTML = mssg.name;
       var parseMessage = mssg.newMessage.trim();
       console.log(parseMessage);
       var msgAry = parseMessage.split(" ");
@@ -53,6 +58,10 @@ ws.addEventListener("open", function(evt){
       var firstli = ul.firstChild;
       ul.insertBefore(newli, firstli);
       //ul.appendChild(newli);
+      // var clientLi = document.createElemetn("li");
+      // var clientName = mssg.name;
+      // clientList.appendChild(clientLi);
+      // clientName.innerHTML = mssg.name;
     }
 
   ws.addEventListener("message", function(evt){
